@@ -8,6 +8,7 @@ import numpy as np
 from keras import applications
 from keras.preprocessing import image
 from PIL import Image
+import urllib.request
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
