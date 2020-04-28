@@ -1,4 +1,4 @@
-#!/home/aly_khimji/tfblog2/bin/python
+#!/usr/local/bin/python
 from flask import Flask
 from flask import render_template
 from flask import request, redirect
