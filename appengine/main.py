@@ -57,10 +57,6 @@ def decode(predictions):
 def form():
     labels=[]
     data=[]
-    url="https://news.harvard.edu/wp-content/uploads/2019/04/iStock-515813368.jpg"
-    url="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Fromia_monilis_%28Seastar%29.jpg/220px-Fromia_monilis_%28Seastar%29.jpg"
-    url="https://cdn.shopify.com/s/files/1/1928/9661/products/Preveo_Alpha_Four_24_Kids_Bike_Silver_Profile_2000x.jpg"
-    url="https://zjf683hopnivfq5d12xaooxr-wpengine.netdna-ssl.com/wp-content/uploads/2020/02/GettyImages-1199242002-1-1480x833.jpg"
     url=request.form['url']
     ### Change These To Match You Project ###
     project="tf-blog"
