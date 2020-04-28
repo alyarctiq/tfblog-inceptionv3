@@ -62,7 +62,7 @@ def form():
     project="tf-blog"
     region="uscentral1"
     model="tfblog"
-    version="v3"
+    version="v1"
     #img = loadImage("https://upload.wikimedia.org/wikipedia/commons/d/dc/Fromia_monilis_%28Seastar%29.jpg")
     img = loadImage(url)
     w, h = img.size
