@@ -15,6 +15,14 @@ from io import BytesIO
 import urllib
 
 
+imgX=204
+imgY=204
+### Change These To Match You Project ###
+project="tf-blog"
+region="uscentral1"
+model="tfblog"
+version="v1"
+
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
 app = Flask(__name__)
@@ -36,11 +44,14 @@ def predict_json(project, region, model, instances, version=None):
     return response['predictions']
 
 
-
 def loadImage(URL):
-    with urllib.request.urlopen(URL) as url:
-        img = image.load_img(BytesIO(url.read()), target_size=(150,150))
-    return img
+    try:
+        with urllib.request.urlopen(URL) as url:
+            img = image.load_img(BytesIO(url.read()), target_size=(imgX,imgY))
+            return img
+    except urllib.error.URLError as e:
+        img=e.reason
+        return img
 
 def load_image(filename):
     with open(filename,'rb') as f:
@@ -58,28 +69,21 @@ def form():
     labels=[]
     data=[]
     url=request.form['url']
-    ### Change These To Match You Project ###
-    project="tf-blog"
-    region="uscentral1"
-    model="tfblog"
-    version="v1"
-    #img = loadImage("https://upload.wikimedia.org/wikipedia/commons/d/dc/Fromia_monilis_%28Seastar%29.jpg")
     img = loadImage(url)
+    if img == "Forbidden":
+        error="Unable to fetch URL - Error Forbidden - Try Another URL"
+        return render_template('index.html', error=error)
     w, h = img.size
     print(w,h)
     s = min(w, h)
     y = (h - s) // 2
     x = (w - s) // 2
     img = img.crop((x, y, s, s))
-    #imshow(np.asarray(img))
-    #img.save("test.jpg",optimize=True,quality=5)
-    #img.save("test.jpg")
-
     np_img = image.img_to_array(img)
     img_batch = np.expand_dims(np_img, axis=0)
     pre_processed = preprocess_input(img_batch)
     print(pre_processed.shape)
-    pre_processed=pre_processed.reshape(150,150,3)
+    pre_processed=pre_processed.reshape(imgX,imgY,3)
     payload = [pre_processed.tolist()]
     features=predict_json(project, region, model, payload , version)
     for result in features:
