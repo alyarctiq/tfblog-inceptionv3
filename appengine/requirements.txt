@@ -3,5 +3,5 @@ google-api-python-client
 google-auth-httplib2
 google-auth-oauthlib
 numpy
-keras
 pillow
+tensorflow==2.2.0rc1

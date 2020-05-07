@@ -5,18 +5,18 @@ from flask import request, redirect
 import googleapiclient.discovery
 import json
 import numpy as np
-from keras import applications
-from keras.preprocessing import image
+from tensorflow.keras import applications
+from tensorflow.keras.preprocessing import image
 from PIL import Image
 import urllib.request
-from keras.applications.inception_v3 import decode_predictions
-from keras.applications.inception_v3 import preprocess_input
+from tensorflow.keras.applications.inception_v3 import decode_predictions
+from tensorflow.keras.applications.inception_v3 import preprocess_input
 from io import BytesIO
 import urllib
 
 
-imgX=204
-imgY=204
+imgX=150
+imgY=150
 ### Change These To Match You Project ###
 project="tf-blog"
 region="uscentral1"
@@ -52,10 +52,6 @@ def loadImage(URL):
     except urllib.error.URLError as e:
         img=e.reason
         return img
-
-def load_image(filename):
-    with open(filename,'rb') as f:
-        return np.array(f.read())
 
 def decode(predictions):
      pred_arr = np.expand_dims(np.array(predictions), axis=0)
